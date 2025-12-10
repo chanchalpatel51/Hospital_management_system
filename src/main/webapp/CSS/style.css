@@ -1,0 +1,1441 @@
+/* Root Variables for Theme */
+:root {
+    --primary-color: #10b981;
+    --secondary-color: #059669;
+    --success-color: #10b981;
+    --bg-color: #f0fdf4;
+    --text-color: #064e3b;
+    --card-bg: #ffffff;
+    --card-shadow: rgba(16, 185, 129, 0.15);
+    --footer-bg: #059669;
+    --navbar-bg: #10b981;
+    --border-color: #d1fae5;
+    --hover-color: #047857;
+    --accent-color: #34d399;
+}
+
+/* Dark Theme */
+body.dark-theme {
+    --primary-color: #34d399;
+    --secondary-color: #10b981;
+    --success-color: #34d399;
+    --bg-color: #0f172a;
+    --text-color: #e2e8f0;
+    --card-bg: #1e293b;
+    --card-shadow: rgba(16, 185, 129, 0.3);
+    --footer-bg: #064e3b;
+    --navbar-bg: #065f46;
+    --border-color: #334155;
+    --hover-color: #6ee7b7;
+    --accent-color: #a7f3d0;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    overflow-x: hidden;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    transition: background-color 0.3s ease, color 0.3s ease;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Smooth Scrolling */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Carousel Styling */
+.carousel-item img {
+    height: 90vh;
+    object-fit: cover;
+    filter: brightness(0.85);
+}
+
+@media (max-width: 768px) {
+    .carousel-item img {
+        height: 50vh;
+    }
+}
+
+@media (max-width: 480px) {
+    .carousel-item img {
+        height: 40vh;
+    }
+}
+
+/* Carousel Caption Enhancement */
+.carousel-caption {
+    background: rgba(0, 0, 0, 0.5);
+    padding: 20px;
+    border-radius: 10px;
+    backdrop-filter: blur(5px);
+}
+
+/* Paint Card with Gradient */
+.paint-card {
+    box-shadow: 0 5px 20px var(--card-shadow);
+    background-color: var(--card-bg);
+    border-radius: 15px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid var(--border-color);
+    overflow: hidden;
+}
+
+.paint-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 30px var(--card-shadow);
+}
+
+.paint-card .card-body {
+    padding: 25px;
+}
+
+/* Dropdown Menu */
+.dropdown-menu {
+    z-index: 2000 !important;
+    position: absolute !important;
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    box-shadow: 0 4px 15px var(--card-shadow);
+}
+
+.dropdown-menu .dropdown-item {
+    color: var(--text-color);
+    transition: background-color 0.2s ease;
+}
+
+.dropdown-menu .dropdown-item:hover {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.navbar, .navbar * {
+    overflow: visible !important;
+}
+
+/* Background Image */
+.backImg {
+    background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('../img/hospitalBackImg.jpg');
+    height: 20vh;
+    width: 100%;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+/* Theme Toggle Button */
+.theme-toggle {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    box-shadow: 0 4px 20px var(--card-shadow);
+    cursor: pointer;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    transition: all 0.3s ease;
+    animation: pulse 2s infinite;
+}
+
+.theme-toggle:hover {
+    transform: scale(1.1);
+    background: var(--hover-color);
+}
+
+@keyframes pulse {
+    0%, 100% {
+        box-shadow: 0 4px 20px var(--card-shadow);
+    }
+    50% {
+        box-shadow: 0 4px 30px var(--primary-color);
+    }
+}
+
+/* Responsive Theme Toggle */
+@media (max-width: 768px) {
+    .theme-toggle {
+        width: 50px;
+        height: 50px;
+        bottom: 20px;
+        right: 20px;
+        font-size: 20px;
+    }
+}
+
+/* Section Headings */
+h2, h3, h4 {
+    color: var(--text-color);
+    font-weight: 700;
+}
+
+/* Key Features Enhancement */
+.features-section {
+    padding: 60px 0;
+}
+
+.feature-card {
+    position: relative;
+    overflow: hidden;
+}
+
+.feature-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+    transition: left 0.3s ease;
+}
+
+.feature-card:hover::before {
+    left: 0;
+}
+
+/* Team Section Styling */
+.team-section {
+    padding: 60px 0;
+    background-color: var(--bg-color);
+}
+
+.team-card {
+    transition: all 0.3s ease;
+}
+
+.team-card img {
+    border: 5px solid var(--primary-color);
+    transition: transform 0.3s ease;
+}
+
+.team-card:hover img {
+    transform: scale(1.05);
+}
+
+/* Button Styling */
+.btn-custom {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    border: none;
+    color: white;
+    padding: 12px 30px;
+    border-radius: 25px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px var(--card-shadow);
+}
+
+.btn-custom:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px var(--card-shadow);
+}
+
+/* Navbar Enhancement */
+.navbar {
+    box-shadow: 0 2px 10px var(--card-shadow);
+    transition: background-color 0.3s ease;
+}
+
+/* Footer Enhancement */
+.custom-footer {
+    background: linear-gradient(135deg, var(--footer-bg), var(--hover-color));
+    color: white;
+    padding: 0;
+    margin-top: 60px;
+}
+
+/* Responsive Grid */
+@media (max-width: 992px) {
+    .col-md-4, .col-md-6, .col-md-8 {
+        margin-bottom: 20px;
+    }
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 0 15px;
+    }
+    
+    .paint-card .card-body {
+        padding: 15px;
+    }
+}
+
+/* Loading Animation */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.fade-in {
+    animation: fadeIn 0.6s ease-in-out;
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--bg-color);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--primary-color);
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--hover-color);
+}
+
+/* Utility Classes */
+.text-gradient {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.section-padding {
+    padding: 60px 0;
+}
+
+/* Card Icon Enhancement */
+.card-icon {
+    font-size: 3rem;
+    color: var(--primary-color);
+    margin-bottom: 20px;
+    transition: transform 0.3s ease;
+}
+
+.paint-card:hover .card-icon {
+    transform: rotate(360deg);
+}
+
+/* ========================================
+   ENHANCED FORM STYLING
+   ======================================== */
+
+/* Form Container Enhancement */
+.paint-card form {
+    position: relative;
+}
+
+/* Form Title Enhancement */
+.paint-card .fs-3 {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-weight: 700;
+    margin-bottom: 25px;
+    position: relative;
+    padding-bottom: 15px;
+}
+
+.paint-card .fs-3::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 3px;
+    background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+    border-radius: 2px;
+}
+
+/* Input Group Wrapper */
+.mb-3 {
+    position: relative;
+    margin-bottom: 1.5rem !important;
+}
+
+/* Form Labels with Icon Support */
+.form-label {
+    color: var(--text-color);
+    font-weight: 600;
+    margin-bottom: 10px;
+    font-size: 0.95rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: color 0.3s ease;
+}
+
+.form-label i {
+    color: var(--primary-color);
+    font-size: 1rem;
+}
+
+/* Enhanced Form Controls */
+.form-control, .form-select {
+    background-color: var(--card-bg);
+    border: 2px solid var(--border-color);
+    color: var(--text-color);
+    padding: 14px 18px;
+    border-radius: 12px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    font-size: 1rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.form-control:hover, .form-select:hover {
+    border-color: var(--accent-color);
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.1);
+}
+
+.form-control:focus, .form-select:focus {
+    background-color: var(--card-bg);
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.15), 0 4px 12px rgba(16, 185, 129, 0.1);
+    color: var(--text-color);
+    outline: none;
+    transform: translateY(-1px);
+}
+
+/* Input with Icon Prefix */
+.input-icon-wrapper {
+    position: relative;
+}
+
+.input-icon-wrapper .form-control {
+    padding-left: 45px;
+}
+
+.input-icon-wrapper .input-icon {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--primary-color);
+    font-size: 1.1rem;
+    transition: color 0.3s ease;
+    z-index: 10;
+}
+
+.input-icon-wrapper .form-control:focus + .input-icon,
+.input-icon-wrapper .form-control:focus ~ .input-icon {
+    color: var(--hover-color);
+}
+
+/* Floating Label Effect */
+.floating-label {
+    position: relative;
+}
+
+.floating-label .form-control {
+    padding-top: 20px;
+    padding-bottom: 8px;
+}
+
+.floating-label .form-label {
+    position: absolute;
+    top: 50%;
+    left: 18px;
+    transform: translateY(-50%);
+    transition: all 0.3s ease;
+    pointer-events: none;
+    margin: 0;
+    color: #888;
+    font-weight: 400;
+}
+
+.floating-label .form-control:focus ~ .form-label,
+.floating-label .form-control:not(:placeholder-shown) ~ .form-label {
+    top: 12px;
+    font-size: 0.75rem;
+    color: var(--primary-color);
+    font-weight: 600;
+}
+
+/* Select Dropdown Enhancement */
+.form-select {
+    cursor: pointer;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%2310b981' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 15px center;
+    background-size: 16px 12px;
+    padding-right: 45px;
+}
+
+.form-select option {
+    padding: 12px;
+    background-color: var(--card-bg);
+    color: var(--text-color);
+}
+
+/* Textarea Enhancement */
+textarea.form-control {
+    min-height: 120px;
+    resize: vertical;
+    line-height: 1.6;
+}
+
+textarea.form-control:focus {
+    min-height: 140px;
+}
+
+/* Checkbox & Radio Enhancement */
+.form-check-input {
+    width: 20px;
+    height: 20px;
+    border: 2px solid var(--border-color);
+    background-color: var(--card-bg);
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.form-check-input:checked {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+    box-shadow: 0 2px 8px rgba(16, 185, 129, 0.4);
+}
+
+.form-check-input:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.15);
+}
+
+.form-check-label {
+    color: var(--text-color);
+    cursor: pointer;
+    padding-left: 8px;
+}
+
+/* Submit Button Enhancement */
+.btn-custom, 
+form button[type="submit"],
+form .btn-success,
+form .btn-primary {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    border: none;
+    color: white;
+    padding: 14px 30px;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 1rem;
+    letter-spacing: 0.5px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.btn-custom::before,
+form button[type="submit"]::before,
+form .btn-success::before,
+form .btn-primary::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s ease;
+}
+
+.btn-custom:hover::before,
+form button[type="submit"]:hover::before,
+form .btn-success:hover::before,
+form .btn-primary:hover::before {
+    left: 100%;
+}
+
+.btn-custom:hover,
+form button[type="submit"]:hover,
+form .btn-success:hover,
+form .btn-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(16, 185, 129, 0.4);
+    background: linear-gradient(135deg, var(--secondary-color), var(--hover-color));
+}
+
+.btn-custom:active,
+form button[type="submit"]:active,
+form .btn-success:active,
+form .btn-primary:active {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+}
+
+/* Form Card Enhancement */
+.paint-card {
+    background: var(--card-bg);
+    border-radius: 20px;
+    box-shadow: 0 10px 40px var(--card-shadow);
+    border: 1px solid var(--border-color);
+    overflow: hidden;
+    position: relative;
+}
+
+.paint-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--primary-color), var(--accent-color), var(--secondary-color));
+}
+
+.paint-card .card-body {
+    padding: 35px;
+    position: relative;
+    z-index: 1;
+}
+
+/* Form Divider */
+.form-divider {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    margin: 25px 0;
+    color: var(--text-color);
+    opacity: 0.6;
+}
+
+.form-divider::before,
+.form-divider::after {
+    content: '';
+    flex: 1;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.form-divider span {
+    padding: 0 15px;
+    font-size: 0.9rem;
+}
+
+/* Success & Error Messages Enhancement - Single Row Alert Style */
+.alert-msg {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 12px 20px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    font-weight: 500;
+    font-size: 0.95rem;
+    animation: slideIn 0.5s ease;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.alert-msg i {
+    font-size: 1.1rem;
+}
+
+.alert-success {
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.15), rgba(16, 185, 129, 0.05));
+    border: 1px solid rgba(16, 185, 129, 0.3);
+    color: var(--primary-color);
+    box-shadow: 0 4px 15px rgba(16, 185, 129, 0.1);
+}
+
+.alert-success i {
+    color: var(--primary-color);
+}
+
+.alert-danger {
+    background: linear-gradient(135deg, rgba(239, 68, 68, 0.15), rgba(239, 68, 68, 0.05));
+    border: 1px solid rgba(239, 68, 68, 0.3);
+    color: #ef4444;
+    box-shadow: 0 4px 15px rgba(239, 68, 68, 0.1);
+}
+
+.alert-danger i {
+    color: #ef4444;
+}
+
+/* Dark theme alerts */
+body.dark-theme .alert-success {
+    background: linear-gradient(135deg, rgba(52, 211, 153, 0.2), rgba(52, 211, 153, 0.1));
+    border-color: rgba(52, 211, 153, 0.4);
+    color: #34d399;
+}
+
+body.dark-theme .alert-danger {
+    background: linear-gradient(135deg, rgba(239, 68, 68, 0.2), rgba(239, 68, 68, 0.1));
+    border-color: rgba(239, 68, 68, 0.4);
+    color: #f87171;
+}
+
+/* Legacy text-success/text-danger support */
+.text-success, .text-danger {
+    padding: 12px 20px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    font-weight: 500;
+    animation: slideIn 0.5s ease;
+}
+
+.text-success {
+    background: rgba(16, 185, 129, 0.1);
+    border-left: 4px solid var(--primary-color);
+}
+
+.text-danger {
+    background: rgba(239, 68, 68, 0.1);
+    border-left: 4px solid #ef4444;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Input Validation States */
+.form-control:valid:not(:placeholder-shown) {
+    border-color: var(--primary-color);
+}
+
+.form-control:invalid:not(:placeholder-shown):not(:focus) {
+    border-color: var(--border-color);
+}
+
+/* Password Toggle Button */
+.password-toggle {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: var(--text-color);
+    cursor: pointer;
+    opacity: 0.6;
+    transition: opacity 0.3s ease;
+    padding: 5px;
+}
+
+.password-toggle:hover {
+    opacity: 1;
+    color: var(--primary-color);
+}
+
+/* Form Link Enhancement */
+.paint-card a {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.paint-card a::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--primary-color);
+    transition: width 0.3s ease;
+}
+
+.paint-card a:hover::after {
+    width: 100%;
+}
+
+.paint-card a:hover {
+    color: var(--hover-color);
+}
+
+/* Row Form Columns */
+.row.g-3 > [class*="col-"] {
+    margin-bottom: 20px;
+}
+
+/* ========================================
+   COMPREHENSIVE RESPONSIVE FORM STYLES
+   ======================================== */
+
+/* Large Tablets and Small Desktops */
+@media (max-width: 992px) {
+    .col-md-4.offset-md-4,
+    .col-md-5.offset-md-4,
+    .col-md-6.offset-md-3 {
+        width: 70%;
+        margin-left: 15%;
+        margin-right: 15%;
+    }
+    
+    .row .col-md-6.p-5 {
+        padding: 2rem !important;
+    }
+}
+
+/* Tablets */
+@media (max-width: 768px) {
+    /* Form Card Responsiveness */
+    .col-md-4.offset-md-4,
+    .col-md-5.offset-md-4,
+    .col-md-6.offset-md-3 {
+        width: 90%;
+        margin-left: 5%;
+        margin-right: 5%;
+    }
+    
+    .paint-card .card-body {
+        padding: 25px 20px;
+    }
+    
+    /* Form Controls */
+    .form-control, .form-select {
+        padding: 12px 15px;
+        font-size: 16px; /* Prevents zoom on iOS */
+    }
+    
+    /* Form Buttons Full Width */
+    .btn-custom,
+    form button[type="submit"],
+    form .btn-success,
+    form .btn-primary,
+    .col-md-12 .btn,
+    button.col-md-12,
+    a.col-md-12,
+    .col-md-6.offset-md-3 .btn,
+    button.col-md-6.offset-md-3 {
+        padding: 12px 25px;
+        width: 100% !important;
+        margin-left: 0 !important;
+    }
+    
+    .paint-card .fs-3 {
+        font-size: 1.5rem !important;
+    }
+    
+    /* Two Column Forms to Single Column on Tablet */
+    .row.g-3 .col-md-6 {
+        width: 100%;
+        flex: 0 0 100%;
+        max-width: 100%;
+    }
+    
+    /* User Appointment Page */
+    .row .col-md-6.p-5 {
+        padding: 1.5rem !important;
+    }
+    
+    .row .col-md-6.p-5 img {
+        width: 100%;
+        margin-bottom: 1.5rem;
+        border-radius: 15px;
+    }
+    
+    /* Doctor Edit Profile - Side by Side Cards */
+    .col-md-4,
+    .col-md-5.offset-md-2 {
+        width: 100%;
+        margin-left: 0;
+        margin-bottom: 2rem;
+    }
+    
+    /* Container padding */
+    .container.p-5 {
+        padding: 2rem 1rem !important;
+    }
+    
+    .container.p-3 {
+        padding: 1.5rem 1rem !important;
+    }
+}
+
+/* Mobile Phones */
+@media (max-width: 576px) {
+    /* Form Card Full Width */
+    .col-md-4.offset-md-4,
+    .col-md-5.offset-md-4,
+    .col-md-6.offset-md-3 {
+        width: 95%;
+        margin-left: 2.5%;
+        margin-right: 2.5%;
+    }
+    
+    .paint-card .card-body {
+        padding: 20px 15px;
+    }
+    
+    /* Form Title */
+    .paint-card .fs-3,
+    .text-center.fs-3 {
+        font-size: 1.3rem !important;
+    }
+    
+    /* Form Labels */
+    .form-label {
+        font-size: 0.9rem;
+        margin-bottom: 8px;
+    }
+    
+    .form-label i {
+        font-size: 0.9rem;
+    }
+    
+    /* Form Inputs */
+    .form-control, .form-select {
+        padding: 10px 12px;
+        font-size: 16px;
+        border-radius: 10px;
+    }
+    
+    textarea.form-control {
+        min-height: 100px;
+    }
+    
+    /* Buttons */
+    .btn-custom,
+    form button[type="submit"],
+    form .btn-success,
+    form .btn-primary {
+        padding: 12px 20px;
+        font-size: 0.95rem;
+        border-radius: 10px;
+    }
+    
+    /* Container Padding */
+    .container.p-5 {
+        padding: 1.5rem 0.75rem !important;
+    }
+    
+    .container.p-3,
+    .container.p-4 {
+        padding: 1rem 0.75rem !important;
+    }
+    
+    /* Row adjustments */
+    .row {
+        margin-left: 0;
+        margin-right: 0;
+    }
+    
+    /* Hide image on appointment page for small screens */
+    .row .col-md-6.p-5:first-child {
+        display: none;
+    }
+    
+    .row .col-md-6.p-5:last-child {
+        width: 100%;
+        padding: 1rem !important;
+    }
+    
+    /* Messages */
+    .text-success, .text-danger {
+        font-size: 1rem !important;
+        padding: 10px 15px;
+    }
+    
+    /* Background Image Section */
+    .backImg {
+        height: 15vh;
+    }
+    
+    .container-fluid.p-5 {
+        padding: 1.5rem !important;
+    }
+}
+
+/* Extra Small Mobile Phones */
+@media (max-width: 400px) {
+    .col-md-4.offset-md-4,
+    .col-md-5.offset-md-4,
+    .col-md-6.offset-md-3 {
+        width: 100%;
+        margin-left: 0;
+        margin-right: 0;
+    }
+    
+    .paint-card {
+        border-radius: 15px;
+        margin: 0 5px;
+    }
+    
+    .paint-card .card-body {
+        padding: 15px 12px;
+    }
+    
+    .paint-card .fs-3,
+    .text-center.fs-3 {
+        font-size: 1.2rem !important;
+    }
+    
+    .form-control, .form-select {
+        padding: 10px;
+        font-size: 15px;
+    }
+    
+    .form-label {
+        font-size: 0.85rem;
+    }
+    
+    .btn-custom,
+    form button[type="submit"],
+    form .btn-success,
+    form .btn-primary {
+        padding: 10px 15px;
+        font-size: 0.9rem;
+    }
+}
+
+/* Form Animation on Load */
+.paint-card form .mb-3 {
+    animation: fadeInUp 0.5s ease forwards;
+    opacity: 0;
+}
+
+.paint-card form .mb-3:nth-child(1) { animation-delay: 0.1s; }
+.paint-card form .mb-3:nth-child(2) { animation-delay: 0.15s; }
+.paint-card form .mb-3:nth-child(3) { animation-delay: 0.2s; }
+.paint-card form .mb-3:nth-child(4) { animation-delay: 0.25s; }
+.paint-card form .mb-3:nth-child(5) { animation-delay: 0.3s; }
+.paint-card form .mb-3:nth-child(6) { animation-delay: 0.35s; }
+.paint-card form .mb-3:nth-child(7) { animation-delay: 0.4s; }
+.paint-card form .mb-3:nth-child(8) { animation-delay: 0.45s; }
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Col-md form fields animation */
+.paint-card form [class*="col-md"] {
+    animation: fadeInUp 0.5s ease forwards;
+    opacity: 0;
+}
+
+.paint-card form [class*="col-md"]:nth-child(1) { animation-delay: 0.1s; }
+.paint-card form [class*="col-md"]:nth-child(2) { animation-delay: 0.15s; }
+.paint-card form [class*="col-md"]:nth-child(3) { animation-delay: 0.2s; }
+.paint-card form [class*="col-md"]:nth-child(4) { animation-delay: 0.25s; }
+.paint-card form [class*="col-md"]:nth-child(5) { animation-delay: 0.3s; }
+.paint-card form [class*="col-md"]:nth-child(6) { animation-delay: 0.35s; }
+.paint-card form [class*="col-md"]:nth-child(7) { animation-delay: 0.4s; }
+.paint-card form [class*="col-md"]:nth-child(8) { animation-delay: 0.45s; }
+.paint-card form [class*="col-md"]:nth-child(9) { animation-delay: 0.5s; }
+.paint-card form [class*="col-md"]:nth-child(10) { animation-delay: 0.55s; }
+
+/* ========================================
+   DASHBOARD CARD STYLES
+   ======================================== */
+
+.dashboard-card {
+    background: var(--card-bg);
+    border: none;
+    border-radius: 20px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    overflow: hidden;
+    position: relative;
+}
+
+.dashboard-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.05) 0%, transparent 60%);
+    pointer-events: none;
+}
+
+.dashboard-card:hover {
+    transform: translateY(-10px) scale(1.02);
+    box-shadow: 0 20px 60px rgba(16, 185, 129, 0.2);
+}
+
+.dashboard-card .card-body {
+    padding: 25px;
+    position: relative;
+    z-index: 1;
+}
+
+.dashboard-card h2 {
+    color: var(--text-color);
+    font-size: 2.5rem;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.dashboard-card h6 {
+    color: var(--text-color);
+    opacity: 0.7;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-size: 0.85rem;
+}
+
+/* Icon Box Styles */
+.icon-box {
+    width: 65px;
+    height: 65px;
+    border-radius: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.dashboard-card:hover .icon-box {
+    transform: rotate(10deg) scale(1.1);
+}
+
+.icon-box.bg-primary {
+    background: linear-gradient(135deg, #3b82f6, #1d4ed8) !important;
+    box-shadow: 0 8px 25px rgba(59, 130, 246, 0.4);
+}
+
+.icon-box.bg-success {
+    background: linear-gradient(135deg, #10b981, #059669) !important;
+    box-shadow: 0 8px 25px rgba(16, 185, 129, 0.4);
+}
+
+.icon-box.bg-warning {
+    background: linear-gradient(135deg, #f59e0b, #d97706) !important;
+    box-shadow: 0 8px 25px rgba(245, 158, 11, 0.4);
+}
+
+.icon-box.bg-danger {
+    background: linear-gradient(135deg, #ef4444, #dc2626) !important;
+    box-shadow: 0 8px 25px rgba(239, 68, 68, 0.4);
+}
+
+/* Badge Light Styles */
+.bg-success-light {
+    background: rgba(16, 185, 129, 0.15) !important;
+}
+
+.bg-info-light {
+    background: rgba(59, 130, 246, 0.15) !important;
+}
+
+.bg-warning-light {
+    background: rgba(245, 158, 11, 0.15) !important;
+}
+
+.bg-primary-light {
+    background: rgba(99, 102, 241, 0.15) !important;
+}
+
+.badge {
+    padding: 8px 12px;
+    border-radius: 8px;
+    font-weight: 500;
+    font-size: 0.8rem;
+}
+
+/* Cursor Pointer */
+.cursor-pointer {
+    cursor: pointer;
+}
+
+/* Dark Theme Dashboard Cards */
+body.dark-theme .dashboard-card {
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+}
+
+body.dark-theme .dashboard-card:hover {
+    box-shadow: 0 20px 60px rgba(16, 185, 129, 0.3);
+}
+
+body.dark-theme .dashboard-card h6 {
+    color: #94a3b8;
+}
+
+/* Dashboard Card Responsive */
+@media (max-width: 768px) {
+    .dashboard-card .card-body {
+        padding: 20px;
+    }
+    
+    .dashboard-card h2 {
+        font-size: 2rem;
+    }
+    
+    .icon-box {
+        width: 55px;
+        height: 55px;
+        border-radius: 14px;
+    }
+    
+    .icon-box i {
+        font-size: 1.5rem !important;
+    }
+}
+
+/* ========================================
+   TABLE STYLING FOR DARK THEME
+   ======================================== */
+
+/* Table text color in dark theme */
+body.dark-theme .table {
+    color: var(--text-color);
+}
+
+body.dark-theme .table th,
+body.dark-theme .table td {
+    color: var(--text-color);
+    border-color: var(--border-color);
+}
+
+body.dark-theme .table thead th {
+    color: var(--accent-color);
+    background-color: rgba(16, 185, 129, 0.1);
+    border-color: var(--border-color);
+}
+
+body.dark-theme .table tbody tr:hover {
+    background-color: rgba(16, 185, 129, 0.05);
+}
+
+body.dark-theme .table-striped tbody tr:nth-of-type(odd) {
+    background-color: rgba(255, 255, 255, 0.02);
+}
+
+/* ========================================
+   FORM INPUT TEXT COLOR FOR DARK THEME
+   ======================================== */
+
+/* Input field text color in dark theme */
+body.dark-theme .form-control,
+body.dark-theme .form-select,
+body.dark-theme textarea.form-control {
+    color: var(--text-color);
+    background-color: var(--card-bg);
+}
+
+body.dark-theme .form-control::placeholder,
+body.dark-theme textarea.form-control::placeholder {
+    color: #94a3b8;
+}
+
+body.dark-theme .form-control:focus,
+body.dark-theme .form-select:focus,
+body.dark-theme textarea.form-control:focus {
+    color: var(--text-color);
+    background-color: var(--card-bg);
+}
+
+/* Readonly input fields in dark theme */
+body.dark-theme .form-control[readonly] {
+    color: var(--text-color);
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+/* ========================================
+   MODAL DARK THEME STYLES
+   ======================================== */
+
+/* Modal Content Background */
+.modal-content {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 15px;
+    box-shadow: 0 10px 40px var(--card-shadow);
+}
+
+/* Modal Header */
+.modal-header {
+    background-color: var(--card-bg);
+    border-bottom: 1px solid var(--border-color);
+    border-radius: 15px 15px 0 0;
+}
+
+.modal-title {
+    color: var(--text-color);
+    font-weight: 700;
+}
+
+/* Modal Body */
+.modal-body {
+    background-color: var(--card-bg);
+    color: var(--text-color);
+}
+
+.modal-body label {
+    color: var(--text-color);
+    font-weight: 600;
+}
+
+/* Modal Footer */
+.modal-footer {
+    background-color: var(--card-bg);
+    border-top: 1px solid var(--border-color);
+    border-radius: 0 0 15px 15px;
+}
+
+/* Close Button in Dark Theme */
+body.dark-theme .btn-close {
+    filter: invert(1) grayscale(100%) brightness(200%);
+}
+
+/* Modal Backdrop */
+body.dark-theme .modal-backdrop {
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+/* Dark Theme Specific Modal Styles */
+body.dark-theme .modal-content {
+    background-color: var(--card-bg);
+    border-color: var(--border-color);
+    box-shadow: 0 10px 50px rgba(0, 0, 0, 0.5);
+}
+
+body.dark-theme .modal-header {
+    background-color: var(--card-bg);
+    border-bottom-color: var(--border-color);
+}
+
+body.dark-theme .modal-title {
+    color: var(--text-color);
+}
+
+body.dark-theme .modal-body {
+    background-color: var(--card-bg);
+    color: var(--text-color);
+}
+
+body.dark-theme .modal-body label {
+    color: var(--text-color);
+}
+
+body.dark-theme .modal-footer {
+    background-color: var(--card-bg);
+    border-top-color: var(--border-color);
+}
+
+body.dark-theme .modal-body .form-control {
+    color: var(--text-color);
+    background-color: var(--card-bg);
+    border-color: var(--border-color);
+}
+
+body.dark-theme .modal-body .form-control:focus {
+    color: var(--text-color);
+    background-color: var(--card-bg);
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.15);
+}
+
+/* ========================================
+   TABLE OVERFLOW & GLITCH FIX
+   ======================================== */
+
+/* Prevent table horizontal overflow and glitching */
+.table-responsive {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    width: 100%;
+    margin-bottom: 1rem;
+}
+
+/* Fixed table layout to prevent width fluctuation */
+.table {
+    table-layout: fixed;
+    width: 100%;
+    margin-bottom: 0;
+}
+
+/* Prevent table cells from causing layout shift */
+.table td,
+.table th {
+    vertical-align: middle;
+    padding: 0.75rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Center align images in table cells */
+.table td.text-center {
+    text-align: center;
+}
+
+/* Smooth transitions for table rows */
+.table tbody tr {
+    transition: background-color 0.2s ease;
+}
+
+/* Prevent buttons from wrapping in action column */
+.table td .btn {
+    white-space: nowrap;
+    margin: 2px;
+}
+
+/* Ensure table doesn't cause horizontal scroll on page */
+.container-fluid .table-responsive {
+    max-width: 100%;
+}
+
+/* Fix for long email addresses */
+.table td[style*="word-break"] {
+    max-width: 200px;
+    word-wrap: break-word;
+    word-break: break-word;
+    hyphens: auto;
+}
+
+/* Responsive adjustments for mobile */
+@media (max-width: 768px) {
+    .table {
+        font-size: 0.875rem;
+    }
+    
+    .table td,
+    .table th {
+        padding: 0.5rem;
+    }
+    
+    .table .btn-sm {
+        font-size: 0.75rem;
+        padding: 0.25rem 0.5rem;
+    }
+}
+
+/* Prevent any CSS animations from affecting table */
+.table-responsive .table {
+    animation: none !important;
+    transform: none !important;
+}
+
+/* Fix for paint-card hover effect not affecting table */
+.paint-card:hover .table-responsive {
+    transform: none;
+}
