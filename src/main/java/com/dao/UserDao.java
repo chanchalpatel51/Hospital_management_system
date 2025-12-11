@@ -45,10 +45,17 @@ public class UserDao {
 		User u = null;
 		
 		try {
+			if (conn == null || conn.isClosed()) {
+				System.err.println("Database connection is null or closed during login!");
+				return null;
+			}
+			
 			String sql = "select * from user_dtls where email=? and password=?";
 			PreparedStatement ps = conn.prepareStatement(sql);
 			ps.setString(1, em);
 			ps.setString(2, psw);
+			
+			System.out.println("Attempting login for email: " + em);
 			
 			ResultSet rs = ps.executeQuery();
 			
@@ -59,8 +66,14 @@ public class UserDao {
 				u.setEmail(rs.getString(3));
 				u.setPassword(rs.getString(4));
 				u.setPhoto(rs.getString(5));
+				System.out.println("Login successful for user: " + u.getFullname());
+			}
+			
+			if (u == null) {
+				System.out.println("No user found with email: " + em);
 			}
 		} catch (Exception e) {
+			System.err.println("Error during login: " + e.getMessage());
 			e.printStackTrace();
 		}
 		
