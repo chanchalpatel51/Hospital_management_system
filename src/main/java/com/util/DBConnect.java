@@ -56,8 +56,10 @@ public class DBConnect {
         if (DB_SSL) {
             url.append("?useSSL=true");
             url.append("&requireSSL=true");
-            url.append("&verifyServerCertificate=true");
+            // Use verifyServerCertificate=false to avoid certificate issues with TiDB Cloud
+            url.append("&verifyServerCertificate=false");
             url.append("&enabledTLSProtocols=TLSv1.2,TLSv1.3");
+            url.append("&allowPublicKeyRetrieval=true");
         } else {
             url.append("?useSSL=false");
             url.append("&allowPublicKeyRetrieval=true");
@@ -67,6 +69,7 @@ public class DBConnect {
         url.append("&serverTimezone=UTC");
         url.append("&useUnicode=true");
         url.append("&characterEncoding=UTF-8");
+        url.append("&autoReconnect=true");
         
         return url.toString();
     }

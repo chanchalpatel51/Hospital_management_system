@@ -18,6 +18,11 @@ public class UserDao {
 			boolean f = false;
 			
 			try {
+				if (conn == null || conn.isClosed()) {
+					System.err.println("Database connection is null or closed!");
+					return false;
+				}
+				
 				PreparedStatement ps = conn.prepareStatement("insert into user_dtls(full_name,email,password,photo) values(?,?,?,?)");
 				ps.setString(1, u.getFullname());
 				ps.setString(2, u.getEmail());
@@ -29,6 +34,7 @@ public class UserDao {
 					f=true;
 				}
 			} catch (Exception e) {
+				System.err.println("Error registering user: " + e.getMessage());
 				e.printStackTrace();
 			}
 			
