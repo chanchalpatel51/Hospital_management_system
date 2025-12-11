@@ -1,0 +1,11 @@
+# Ignore everything
+*
+
+# Allow these files/directories
+!pom.xml
+!src/
+!src/**
+
+# But ignore properties files (sensitive data)
+src/main/resources/*.properties
+*.properties
