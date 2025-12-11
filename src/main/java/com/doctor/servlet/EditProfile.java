@@ -29,7 +29,7 @@ public class EditProfile extends HttpServlet {
 			// Here you would typically create a Doctor object and use DoctorDao to save it to the database
 			int id = Integer.parseInt(req.getParameter("id"));
 			
-			Doctor d = new Doctor(id, fullname, dob, qualification, spec, email, mobno, "");
+			Doctor d = new Doctor(id, fullname, dob, qualification, spec, email, mobno, "", "");
 			
 			DoctorDao dao = new DoctorDao(DBConnect.getConn());
 			HttpSession session = req.getSession();
