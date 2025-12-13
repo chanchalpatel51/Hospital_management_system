@@ -74,7 +74,7 @@
 					<div class="card-body">
 						<div class="d-flex align-items-center justify-content-between">
 							<div>
-								<h6 class="text-muted mb-1">Total Users</h6>
+								<h6 class="text-muted mb-1">Total Patients</h6>
 								<h2 class="fw-bold mb-0"><%=dao.countUser() %></h2>
 							</div>
 							<div class="icon-box bg-success">
