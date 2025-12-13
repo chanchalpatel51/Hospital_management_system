@@ -1,12 +1,17 @@
 # Build stage
 FROM maven:3.9.6-eclipse-temurin-11 AS build
 WORKDIR /app
-COPY pom.xml .
-COPY src ./src
-RUN mvn clean package -DskipTests
 
-# Production stage
-FROM tomcat:9.0-jdk11-temurin
+# Copy pom.xml first and download dependencies (this layer gets cached)
+COPY pom.xml .
+RUN mvn dependency:go-offline -B
+
+# Now copy source code and build (only this runs when code changes)
+COPY src ./src
+RUN mvn clean package -DskipTests -o
+
+# Production stage - use slim image
+FROM tomcat:9.0-jdk11-temurin-slim
 
 # Remove default Tomcat webapps
 RUN rm -rf /usr/local/tomcat/webapps/*
