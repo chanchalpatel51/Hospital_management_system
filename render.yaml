@@ -6,16 +6,16 @@ services:
     healthCheckPath: /
     envVars:
       - key: DB_HOST
-        sync: false
+        value: gateway01.ap-southeast-1.prod.aws.tidbcloud.com
       - key: DB_PORT
         value: 4000
       - key: DB_NAME
-        sync: false
+        value: hospital_management_system
       - key: DB_USER
-        sync: false
+        value: 2xpFsLgSjyJvLBn.root
       - key: DB_PASSWORD
-        sync: false
+        value: kcBO9ccD8HWq7bbf
       - key: DB_SSL
         value: true
       - key: DB_SSL_MODE
-        value: VERIFY_IDENTITY
+        value: REQUIRED

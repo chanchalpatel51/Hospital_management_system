@@ -70,6 +70,7 @@ public class DBConnect {
         url.append("&useUnicode=true");
         url.append("&characterEncoding=UTF-8");
         url.append("&autoReconnect=true");
+        url.append("&createDatabaseIfNotExist=true");
         
         return url.toString();
     }

@@ -10,8 +10,8 @@ RUN mvn dependency:go-offline -B
 COPY src ./src
 RUN mvn clean package -DskipTests -o
 
-# Production stage - use slim image
-FROM tomcat:9.0-jdk11-temurin-slim
+# Production stage
+FROM tomcat:9.0-jdk11-temurin
 
 # Remove default Tomcat webapps
 RUN rm -rf /usr/local/tomcat/webapps/*

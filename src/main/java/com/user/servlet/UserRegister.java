@@ -69,10 +69,15 @@ public class UserRegister extends HttpServlet {
 			
 			if (conn == null) {
 				System.err.println("ERROR: Database connection is NULL!");
+				System.err.println("Please check:");
+				System.err.println("1. Database server is running and accessible");
+				System.err.println("2. Environment variables are set correctly on Render");
+				System.err.println("3. Database credentials are correct");
+				System.err.println("4. Network allows connection to database (firewall/security groups)");
 				// Delete uploaded file since registration failed
 				deleteUploadedFile(savedFilePath);
 				HttpSession session = req.getSession();
-				session.setAttribute("errorMsg", "Database connection failed");
+				session.setAttribute("errorMsg", "Database connection failed. Please contact administrator or visit /testdb to see connection details.");
 				resp.sendRedirect("signup.jsp");
 				return;
 			}
