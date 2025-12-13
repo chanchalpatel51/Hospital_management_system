@@ -24,6 +24,8 @@ public class UserRegister extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		Connection conn = null;
+		String savedFilePath = null;
+		String savedFileName = null;
 		try {
 			System.out.println("========== USER REGISTRATION ATTEMPT ==========");
 			
@@ -50,18 +52,25 @@ public class UserRegister extends HttpServlet {
 				System.out.println("Created directory: " + path);
 			}
 			
-			// Save the photo
-			String filePath = path + File.separator + fileName;
-			part.write(filePath);
-			System.out.println("Photo saved to: " + filePath);
+			// Generate unique filename and save the photo
+			if (fileName != null && !fileName.isEmpty()) {
+				savedFileName = System.currentTimeMillis() + "_" + fileName;
+				savedFilePath = path + File.separator + savedFileName;
+				part.write(savedFilePath);
+				System.out.println("Photo saved to: " + savedFilePath);
+			} else {
+				savedFileName = "default.jpg";
+			}
 			
-			User u = new User(fullname, email, password, fileName);
+			User u = new User(fullname, email, password, savedFileName);
 			
 			System.out.println("Getting database connection...");
 			conn = DBConnect.getConn();
 			
 			if (conn == null) {
 				System.err.println("ERROR: Database connection is NULL!");
+				// Delete uploaded file since registration failed
+				deleteUploadedFile(savedFilePath);
 				HttpSession session = req.getSession();
 				session.setAttribute("errorMsg", "Database connection failed");
 				resp.sendRedirect("signup.jsp");
@@ -81,6 +90,8 @@ public class UserRegister extends HttpServlet {
 				resp.sendRedirect("user_login.jsp");
 			} else {
 				System.out.println("REGISTRATION FAILED for: " + email);
+				// Delete uploaded file since registration failed
+				deleteUploadedFile(savedFilePath);
 				session.setAttribute("errorMsg", "Something wrong on server");
 				resp.sendRedirect("signup.jsp");
 			}
@@ -89,6 +100,9 @@ public class UserRegister extends HttpServlet {
 			System.err.println("Exception type: " + e.getClass().getName());
 			System.err.println("Exception message: " + e.getMessage());
 			e.printStackTrace();
+			
+			// Delete uploaded file since registration failed
+			deleteUploadedFile(savedFilePath);
 			
 			HttpSession session = req.getSession();
 			session.setAttribute("errorMsg", "Error: " + e.getMessage());
@@ -103,6 +117,16 @@ public class UserRegister extends HttpServlet {
 				}
 			}
 			System.out.println("========== END USER REGISTRATION ==========\n");
+		}
+	}
+	
+	private void deleteUploadedFile(String filePath) {
+		if (filePath != null && !filePath.contains("default.jpg")) {
+			File uploadedFile = new File(filePath);
+			if (uploadedFile.exists()) {
+				boolean deleted = uploadedFile.delete();
+				System.out.println("Deleted uploaded file due to failure: " + deleted + " - " + filePath);
+			}
 		}
 	}
 }

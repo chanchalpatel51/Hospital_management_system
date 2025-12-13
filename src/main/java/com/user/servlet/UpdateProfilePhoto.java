@@ -47,9 +47,12 @@ public class UpdateProfilePhoto extends HttpServlet {
 					file.mkdirs();
 				}
 				
-				// Save the file
+				// Save the new file
 				String filePath = path + File.separator + newFileName;
 				part.write(filePath);
+				
+				// Get old photo name to delete later
+				String oldPhoto = user.getPhoto();
 				
 				// Update database
 				conn = DBConnect.getConn();
@@ -57,6 +60,15 @@ public class UpdateProfilePhoto extends HttpServlet {
 				boolean updated = dao.updatePhoto(user.getId(), newFileName);
 				
 				if(updated) {
+					// Delete old photo file if it exists and is not default
+					if (oldPhoto != null && !oldPhoto.isEmpty() && !oldPhoto.equals("default.jpg")) {
+						File oldPhotoFile = new File(path + File.separator + oldPhoto);
+						if (oldPhotoFile.exists()) {
+							boolean deleted = oldPhotoFile.delete();
+							System.out.println("Old user photo deleted: " + deleted + " - " + oldPhoto);
+						}
+					}
+					
 					// Update session with new user data
 					User updatedUser = dao.getUserById(user.getId());
 					session.setAttribute("userObj", updatedUser);
@@ -64,6 +76,11 @@ public class UpdateProfilePhoto extends HttpServlet {
 					resp.sendRedirect("view_appointment.jsp");
 					return;
 				} else {
+					// Delete the newly uploaded file since DB update failed
+					File newFile = new File(filePath);
+					if (newFile.exists()) {
+						newFile.delete();
+					}
 					session.setAttribute("errorMsg", "Failed to update profile photo!");
 					resp.sendRedirect("edit_profile.jsp");
 					return;

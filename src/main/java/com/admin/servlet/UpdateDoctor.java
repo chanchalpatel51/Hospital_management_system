@@ -52,6 +52,15 @@ public class UpdateDoctor extends HttpServlet {
 			if (photoName != null && !photoName.isEmpty()) {
 				fileName = System.currentTimeMillis() + "_" + photoName;
 				part.write(path + File.separator + fileName);
+				
+				// Delete old photo file if it exists and is not default
+				if (oldPhoto != null && !oldPhoto.isEmpty() && !oldPhoto.equals("default.jpg")) {
+					File oldPhotoFile = new File(path + File.separator + oldPhoto);
+					if (oldPhotoFile.exists()) {
+						boolean deleted = oldPhotoFile.delete();
+						System.out.println("Old doctor photo deleted: " + deleted + " - " + oldPhoto);
+					}
+				}
 			} else {
 				fileName = oldPhoto; // Keep the old photo
 			}

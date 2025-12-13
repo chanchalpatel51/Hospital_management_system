@@ -24,6 +24,7 @@ public class AddDoctor extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		Connection conn = null;
+		String savedFilePath = null;
 		try {
 			String fullname = req.getParameter("fullname");
 			String dob = req.getParameter("dob");
@@ -38,7 +39,7 @@ public class AddDoctor extends HttpServlet {
 			String photoName = part.getSubmittedFileName();
 			
 			// Generate unique filename to avoid conflicts
-			String fileName = System.currentTimeMillis() + "_" + photoName;
+			String fileName;
 			
 			// Get the path to save the image
 			String path = getServletContext().getRealPath("") + "doctor_img";
@@ -49,7 +50,10 @@ public class AddDoctor extends HttpServlet {
 			
 			// Save the file if photo is provided
 			if (photoName != null && !photoName.isEmpty()) {
-				part.write(path + File.separator + fileName);
+				fileName = System.currentTimeMillis() + "_" + photoName;
+				savedFilePath = path + File.separator + fileName;
+				part.write(savedFilePath);
+				System.out.println("Doctor photo saved: " + savedFilePath);
 			} else {
 				fileName = "default.jpg"; // Default image if no photo uploaded
 			}
@@ -65,11 +69,30 @@ public class AddDoctor extends HttpServlet {
 				session.setAttribute("succMsg", "Doctor Added Successfully...");
 				resp.sendRedirect("admin/doctor.jsp");
 			} else {
+				// Delete uploaded file if DB insert failed
+				if (savedFilePath != null) {
+					File uploadedFile = new File(savedFilePath);
+					if (uploadedFile.exists()) {
+						uploadedFile.delete();
+						System.out.println("Deleted photo due to DB failure: " + savedFilePath);
+					}
+				}
 				session.setAttribute("errorMsg", "Something wrong on server");
 				resp.sendRedirect("admin/doctor.jsp");
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
+			// Delete uploaded file if exception occurred
+			if (savedFilePath != null) {
+				File uploadedFile = new File(savedFilePath);
+				if (uploadedFile.exists()) {
+					uploadedFile.delete();
+					System.out.println("Deleted photo due to exception: " + savedFilePath);
+				}
+			}
+			HttpSession session = req.getSession();
+			session.setAttribute("errorMsg", "Error: " + e.getMessage());
+			resp.sendRedirect("admin/doctor.jsp");
 		} finally {
 			if (conn != null) {
 				try {
