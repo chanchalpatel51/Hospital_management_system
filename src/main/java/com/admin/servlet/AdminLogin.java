@@ -10,9 +10,14 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.entity.User;
+import com.util.DBConnect;
 
 @WebServlet("/adminLogin")
 public class AdminLogin extends HttpServlet {
+
+	// Get admin credentials from environment variables or use defaults
+	private static final String ADMIN_EMAIL = DBConnect.getProperty("ADMIN_EMAIL", "admin@gmail.com");
+	private static final String ADMIN_PASSWORD = DBConnect.getProperty("ADMIN_PASSWORD", "admin");
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -22,7 +27,10 @@ public class AdminLogin extends HttpServlet {
 			
 			HttpSession session = req.getSession();
 			
-			if("admin@gmail.com".equals(email) && "admin".equals(password)) {
+			System.out.println("Admin login attempt with email: " + email);
+			System.out.println("Expected admin email: " + ADMIN_EMAIL);
+			
+			if(ADMIN_EMAIL.equals(email) && ADMIN_PASSWORD.equals(password)) {
 				session.setAttribute("adminObj", new User());
 				resp.sendRedirect("admin/index.jsp");
 			} else {
@@ -33,5 +41,4 @@ public class AdminLogin extends HttpServlet {
 			e.printStackTrace();
 		}
 	}
-
 }
