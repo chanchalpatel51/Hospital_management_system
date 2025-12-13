@@ -1,6 +1,7 @@
 package com.doctor.servlet;
 
 import java.io.IOException;
+import java.sql.Connection;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -18,6 +19,7 @@ public class EditProfile extends HttpServlet {
 	
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		Connection conn = null;
 		try {
 			String fullname = req.getParameter("fullname");
 			String dob = req.getParameter("dob");
@@ -31,7 +33,8 @@ public class EditProfile extends HttpServlet {
 			
 			Doctor d = new Doctor(id, fullname, dob, qualification, spec, email, mobno, "", "");
 			
-			DoctorDao dao = new DoctorDao(DBConnect.getConn());
+			conn = DBConnect.getConn();
+			DoctorDao dao = new DoctorDao(conn);
 			HttpSession session = req.getSession();
 			
 			if(dao.editDoctorProfile(d)) {
@@ -45,6 +48,14 @@ public class EditProfile extends HttpServlet {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
+		} finally {
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
 		}
 	}
 }	

@@ -1,6 +1,7 @@
 package com.user.servlet;
 
 import java.io.IOException;
+import java.sql.Connection;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -31,16 +32,28 @@ public class AppointmentServlet extends HttpServlet{
 		
 		Appointment ap = new Appointment(userId, fullname, gender, age, appoint_date, email,  phno, diseases, doctor_id, address, "Pending");
 		
-		AppointmentDAO dao = new AppointmentDAO(DBConnect.getConn());
+		Connection conn = null;
 		HttpSession session = req.getSession();
 		
-		if(dao.addAppointment(ap)) {
-			session.setAttribute("succMsg", "Appointment Successfully");
-			resp.sendRedirect("user_appointment.jsp");
-		} else {
-			session.setAttribute("errorMsg", "Something wrong on server");
-			resp.sendRedirect("user_appointment.jsp");
+		try {
+			conn = DBConnect.getConn();
+			AppointmentDAO dao = new AppointmentDAO(conn);
+			
+			if(dao.addAppointment(ap)) {
+				session.setAttribute("succMsg", "Appointment Successfully");
+				resp.sendRedirect("user_appointment.jsp");
+			} else {
+				session.setAttribute("errorMsg", "Something wrong on server");
+				resp.sendRedirect("user_appointment.jsp");
+			}
+		} finally {
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
 		}
 	}
-	
 }

@@ -1,6 +1,7 @@
 package com.doctor.servlet;
 
 import java.io.IOException;
+import java.sql.Connection;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -20,23 +21,36 @@ public class DoctorPasswordChange extends HttpServlet {
 		String oldPassword = req.getParameter("oldPassword");
 		String newPassword = req.getParameter("newPassword");
 		
-		DoctorDao dao = new DoctorDao(DBConnect.getConn());
+		Connection conn = null;
 		HttpSession session = req.getSession();
 		
-		if(dao.checkOldPassword(uid, oldPassword)) {
+		try {
+			conn = DBConnect.getConn();
+			DoctorDao dao = new DoctorDao(conn);
 			
-			if(dao.changePassword(uid, newPassword)) {
-					session.setAttribute("succMsg", "Password Changed Successfully");
-					resp.sendRedirect("doctor/edit_profile.jsp");
-					
+			if(dao.checkOldPassword(uid, oldPassword)) {
+				
+				if(dao.changePassword(uid, newPassword)) {
+						session.setAttribute("succMsg", "Password Changed Successfully");
+						resp.sendRedirect("doctor/edit_profile.jsp");
+						
+					} else {
+						session.setAttribute("errorMsg", "Something went wrong");
+						resp.sendRedirect("doctor/edit_profile.jsp");
+					}
+				
 				} else {
-					session.setAttribute("errorMsg", "Something went wrong");
+					session.setAttribute("errorMsg", "Old Password Incorrect");
 					resp.sendRedirect("doctor/edit_profile.jsp");
 				}
-			
-			} else {
-				session.setAttribute("errorMsg", "Old Password Incorrect");
-				resp.sendRedirect("doctor/edit_profile.jsp");
+		} finally {
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 			}
+		}
 	}
 }

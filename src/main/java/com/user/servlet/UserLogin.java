@@ -1,6 +1,7 @@
 package com.user.servlet;
 
 import java.io.IOException;
+import java.sql.Connection;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -22,17 +23,29 @@ public class UserLogin extends HttpServlet {
 		String password = req.getParameter("password");
 		
 		HttpSession session = req.getSession();
+		Connection conn = null;
 		
-		UserDao dao = new UserDao(DBConnect.getConn());
-		User user = dao.login(email, password);
-		
-		
-		if(user != null) { 
-			session.setAttribute("userObj", user);
-			resp.sendRedirect("index.jsp");
-		} else {
-			session.setAttribute("errorMsg", "Invalid email & password");
-			resp.sendRedirect("user_login.jsp");
+		try {
+			conn = DBConnect.getConn();
+			UserDao dao = new UserDao(conn);
+			User user = dao.login(email, password);
+			
+			if(user != null) { 
+				session.setAttribute("userObj", user);
+				resp.sendRedirect("index.jsp");
+			} else {
+				session.setAttribute("errorMsg", "Invalid email & password");
+				resp.sendRedirect("user_login.jsp");
+			}
+		} finally {
+			// Always close the connection to prevent connection leaks
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
 		}
 	}
 }

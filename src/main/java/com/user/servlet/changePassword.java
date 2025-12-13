@@ -1,6 +1,7 @@
 package com.user.servlet;
 
 import java.io.IOException;
+import java.sql.Connection;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -29,22 +30,34 @@ public class changePassword extends HttpServlet {
 		String oldPassword = req.getParameter("oldPassword");
 		String newPassword = req.getParameter("newPassword");
 		
-		UserDao dao = new UserDao(DBConnect.getConn());
-		
-		if(dao.checkOldPassword(uid, oldPassword)) {
+		Connection conn = null;
+		try {
+			conn = DBConnect.getConn();
+			UserDao dao = new UserDao(conn);
 			
-			if(dao.changePassword(uid, newPassword)) {
-					session.setAttribute("succMsg", "Password Changed Successfully");
-					resp.sendRedirect("change_password.jsp");
-					
+			if(dao.checkOldPassword(uid, oldPassword)) {
+				
+				if(dao.changePassword(uid, newPassword)) {
+						session.setAttribute("succMsg", "Password Changed Successfully");
+						resp.sendRedirect("change_password.jsp");
+						
+					} else {
+						session.setAttribute("errorMsg", "Something went wrong");
+						resp.sendRedirect("change_password.jsp");
+					}
+				
 				} else {
-					session.setAttribute("errorMsg", "Something went wrong");
+					session.setAttribute("errorMsg", "Old Password Incorrect");
 					resp.sendRedirect("change_password.jsp");
 				}
-			
-			} else {
-				session.setAttribute("errorMsg", "Old Password Incorrect");
-				resp.sendRedirect("change_password.jsp");
+		} finally {
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 			}
+		}
 	}
 }

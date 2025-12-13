@@ -2,6 +2,7 @@ package com.user.servlet;
 
 import java.io.File;
 import java.io.IOException;
+import java.sql.Connection;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -30,6 +31,7 @@ public class UpdateProfilePhoto extends HttpServlet {
 			return;
 		}
 		
+		Connection conn = null;
 		try {
 			Part part = req.getPart("photo");
 			String fileName = part.getSubmittedFileName();
@@ -50,7 +52,8 @@ public class UpdateProfilePhoto extends HttpServlet {
 				part.write(filePath);
 				
 				// Update database
-				UserDao dao = new UserDao(DBConnect.getConn());
+				conn = DBConnect.getConn();
+				UserDao dao = new UserDao(conn);
 				boolean updated = dao.updatePhoto(user.getId(), newFileName);
 				
 				if(updated) {
@@ -75,6 +78,14 @@ public class UpdateProfilePhoto extends HttpServlet {
 			session.setAttribute("errorMsg", "Something went wrong: " + e.getMessage());
 			resp.sendRedirect("edit_profile.jsp");
 			return;
+		} finally {
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
 		}
 	}
 }

@@ -2,6 +2,7 @@ package com.user.servlet;
 
 import java.io.File;
 import java.io.IOException;
+import java.sql.Connection;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -22,6 +23,7 @@ public class UserRegister extends HttpServlet {
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		Connection conn = null;
 		try {
 			String fullname = req.getParameter("fullname");
 			String email = req.getParameter("email");
@@ -44,7 +46,8 @@ public class UserRegister extends HttpServlet {
 			
 			User u = new User(fullname, email, password, fileName);
 			
-			UserDao dao = new UserDao(DBConnect.getConn());
+			conn = DBConnect.getConn();
+			UserDao dao = new UserDao(conn);
 			boolean f = dao.register(u);
 			
 			HttpSession session = req.getSession();
@@ -58,7 +61,14 @@ public class UserRegister extends HttpServlet {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
+		} finally {
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
 		}
 	}
-	
 }

@@ -2,6 +2,7 @@ package com.admin.servlet;
 
 import java.io.File;
 import java.io.IOException;
+import java.sql.Connection;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -22,6 +23,7 @@ public class UpdateDoctor extends HttpServlet {
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		Connection conn = null;
 		try {
 			String fullname = req.getParameter("fullname");
 			String dob = req.getParameter("dob");
@@ -56,7 +58,8 @@ public class UpdateDoctor extends HttpServlet {
 			
 			Doctor d = new Doctor(id, fullname, dob, qualification, spec, email, mobno, password, fileName);
 			
-			DoctorDao dao = new DoctorDao(DBConnect.getConn());
+			conn = DBConnect.getConn();
+			DoctorDao dao = new DoctorDao(conn);
 			HttpSession session = req.getSession();
 			
 			if(dao.updateDoctor(d)) {
@@ -68,6 +71,14 @@ public class UpdateDoctor extends HttpServlet {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
+		} finally {
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
 		}
 	}	
 }
